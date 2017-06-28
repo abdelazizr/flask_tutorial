@@ -24,6 +24,11 @@ def index():
 @app.route('/login', methods=['GET','POST'])
 def login():
     form = LoginForm()
+    if form.validate_on_submit():
+        flask("login requested for OpenID = '%s', remember_me=%s" %
+        (form.openID.data, str(form.remember_me.data)))
+        return redirect('/index')
     return render_template('login.html',
                            title='Sign in',
-                           form = form)
+                           form = form,
+                           providers=app.config['OPENID_PROVIDERS'])
