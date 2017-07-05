@@ -8,6 +8,28 @@ class User(db.Model):
     #adding a post fields in the user table.
     posts = db.relationship('Post', backref='author', lazy='dynamic')
 
+    #Authentification code
+    @property
+    def is_authenticated(self):
+        return True
+
+    @property
+    def is_active(self):
+        return True
+
+    @property
+    def is_anonymous(self):
+        return False
+
+    @property
+    def get_id(self):
+        try:
+            return unicode(self.id)
+        except nameErrors:
+            return str(self.id)
+
+
+
 
 # Way to print object content
     def __rep__(self):
